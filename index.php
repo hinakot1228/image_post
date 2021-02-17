@@ -1,7 +1,11 @@
 <?php
     require_once('dbconnect.php');
 
+    $stmt = $dbh->prepare('SELECT * FROM users');
+    $stmt->execute();
+    $users = $stmt->fetchAll();
 
+    // var_dump($users);
 ?>
 
 <!DOCTYPE html>
@@ -21,10 +25,12 @@
         <h1>ユーザー一覧</h1>
 
         <div>
+        <?php foreach ($users as $user): ?>
             <div>
-                <h2></h2>
-                <img class="user-img" src="" alt="">
+                <h2><?= $user['name']; ?></h2>
+                <img class="user-img" src="<?= $user['image_at']; ?>" alt="">
             </div>
+        <?php endforeach; ?>
         </div>
     </form>
 </body>
